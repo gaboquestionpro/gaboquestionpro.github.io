@@ -17,14 +17,14 @@ html, body {
 
 #vanilla-slideshow-container { 
 	width: 100%; 
-	height: 100%; 
+	height: 50%; 
 	position: relative; 
 	text-align: center;
 }
 
 #vanilla-slideshow .vanilla-slide { 
 	width: 100%; 
-	height: 100%; 
+	height: 50%; 
 	background-size: cover; 
 	background-position: 50% 50%;
 	background-repeat: no-repeat;
