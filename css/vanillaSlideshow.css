@@ -51,7 +51,7 @@ html, body {
 
 @media (min-width: 1280px) {
 #vanilla-slideshow .vanilla-slide img{ 
-        min-height: 85%;
+        min-height: 100%;
         min-width: 500px; 
         
         }
