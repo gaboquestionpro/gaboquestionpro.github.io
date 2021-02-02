@@ -35,39 +35,7 @@ html, body {
 	
 }
 
-/*---Responsive slider configuration---*/
 
-@media (min-width: 480px) {
-   .vanilla-slide{ 
-        min-height: 100%;
-        min-width: 1024px; 
-        
-        }
-}
-
-@media (min-width: 768px) {
-       .vanilla-slide{ 
-        min-height: 100%;
-        min-width: 1024px; 
-        
-        }
-}
-
-@media (max-width: 1280px) {
-      .vanilla-slide{ 
-        min-height: 100%;
-        min-width: 1280px; 
-        
-        }
-}
-
-@media (min-width: 1920px) {
-    .vanilla-slide{ 
-        min-height: 100%;
-        min-width: 1024px; 
-        
-        }
-}
 
 #vanilla-slideshow .vanilla-slide.vanilla-active { 
     opacity: 1;
