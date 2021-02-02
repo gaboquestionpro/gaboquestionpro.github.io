@@ -49,6 +49,13 @@ html, body {
   left: 0;
 }
 
+@media (min-width: 1280px) {
+      .vanilla-slide{ 
+        min-height: 80%;
+        min-width: 850px; 
+        
+        }
+
 @media screen and (max-width: 1024px) { 
   #vanilla-slideshow .vanilla-slide img {
     left: 50%;
