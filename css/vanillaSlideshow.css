@@ -50,9 +50,9 @@ html, body {
 }
 
 @media (min-width: 1280px) {
-      .vanilla-slide{ 
-        min-height: 80%;
-        min-width: 850px; 
+#vanilla-slideshow .vanilla-slide img{ 
+        min-height: 50%;
+        min-width: 500px; 
         
         }
 
