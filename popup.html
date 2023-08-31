@@ -309,12 +309,14 @@
 			
 			//VANILLA JS
 			
+			var surveyurl = "https://gabriel.questionpro.com/t/AR0azZzhYy?c1=Dato1&c2=Dato2&c3=Dato3&c4=Dato4&c5=Dato5";
 			var div = document.createElement("div");
 			div.style.width = "100px";
 			div.style.height = "100px";
 			div.style.background = "red";
 			div.style.color = "white";
-			div.innerHTML = "https://gabriel.questionpro.com/t/AR0azZzhYy?c1=Dato1";
+			div.id = 'url';
+			div.innerHTML = surveyurl;
 			document.getElementById("page-wrapper").appendChild(div);
 			
 			</script>
