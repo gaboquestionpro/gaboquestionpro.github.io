@@ -3135,4 +3135,18 @@ input, select, textarea {
 						margin-bottom: 2em;
 					}
 
+		/*Custom Intercept CSS*/
+
+		
+			.sa-handle {
+			    background: rgb(38, 103, 142);
+			    border-color: rgb(38, 103, 142);
+			    color: rgb(255, 255, 255);
+			    width: auto;
+			    position: fixed; /* or "absolute" depending on your needs */
+			    left: -31px;
+			    bottom: 0; /* This places the element at the bottom */
+			}
+
+
 	}
