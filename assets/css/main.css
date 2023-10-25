@@ -3139,8 +3139,8 @@ input, select, textarea {
 
 		
 			.sa-handle {
-			    background: rgb(38, 103, 142);
-			    border-color: rgb(38, 103, 142);
+			    background: rgb(19, 179, 40);
+			    border-color: rgb(142, 38, 38);
 			    color: rgb(255, 255, 255);
 			    width: auto;
 			    position: fixed; /* or "absolute" depending on your needs */
