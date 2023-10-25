@@ -75,12 +75,13 @@ input, select, textarea {
 /* Basic */
 
   .sa-handle {
-    content: "Califíca el servicio" !important;
+    content: "Contenido custom" !important;
     background: rgb(19, 179, 40) !important;
     border-color: rgb(142, 38, 38) !important;
     color: rgb(255, 255, 255) !important;
     width: auto !important;
     position: fixed !important;
+	top: 95% !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
     bottom: 0 !important;
