@@ -3139,13 +3139,13 @@ input, select, textarea {
 
 		
 			.sa-handle {
-			    background: rgb(19, 179, 40);
-			    border-color: rgb(142, 38, 38);
-			    color: rgb(255, 255, 255);
-			    width: auto;
-			    position: fixed; /* or "absolute" depending on your needs */
-			    left: -31px;
-			    bottom: 0; /* This places the element at the bottom */
+			    background: rgb(19, 179, 40) !important;
+			    border-color: rgb(142, 38, 38) !important;
+			    color: rgb(255, 255, 255) !important;
+			    width: auto !important;
+			    position: fixed !important; /* or "absolute" depending on your needs */
+			    left: -31px !important;
+			    bottom: 0 !important;; /* This places the element at the bottom */
 			}
 
 
