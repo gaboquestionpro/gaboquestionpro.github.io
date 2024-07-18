@@ -10,10 +10,16 @@
     <title>Admin 2 - Account Portfolio</title>
 
     <script src="https://code.highcharts.com/highcharts.js"></script>
+
+    <script src="https://code.highcharts.com/modules/series-label.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
 </head>
 <div class="topnav">
     <a class="active" href="#home">
-        <img src="images/qp-white.png" alt="logo-white" width="25" height="25">
+        <img src="assets/imgs/qp-white.png" alt="logo-white" width="25" height="25">
         Admin
     </a>
 </div>
@@ -40,27 +46,27 @@
         <div class="card">
             <div class="card-container">
                 <p>Portfolio Value</p>
-                <h1><b>$28,000</b></h1>
+                <h1><b>$53,000</b></h1>
 
             </div>
         </div>
         <div class="card">
             <div class="card-container">
                 <p>Accounts Renewed</p>
-                <h1><b>1/40</b></h1>
+                <h1><b>3/40</b></h1>
             </div>
 
         </div>
         <div class="card">
             <div class="card-container">
                 <p>Custom Metric 1</p>
-                <h1><b>$28,000</b></h1>
+                <h1><b>$x</b></h1>
             </div>
         </div>
         <div class="card">
             <div class="card-container">
                 <p>Custom Metric 2</p>
-                <h1><b>120%</b></h1>
+                <h1><b>x%</b></h1>
             </div>
 
         </div>
@@ -103,7 +109,7 @@
                             <button class="tablinks" onclick="openCity(event, 'Issues')">Tickets</button>
                             <button class="tablinks" onclick="openCity(event, 'Insights')"> AI Insights</button>
                         </div>
-                    <!-- Usage content -->
+                        <!-- Usage content -->
                         <div id="Usage" class="tabcontent">
                             <div class="tab-pane active" id="usage_overview" role="tabpanel">
                                 <div id="usageReportDiv">
@@ -149,7 +155,8 @@
                                                 style="padding: 10px; background-color: #FBFBFB;">
                                                 <h1
                                                     style="border-bottom: 1px solid #E5E5E5;padding: 20px 0;margin-top: 0;font-size:36px;color:#202A51;">
-                                                    10%</h1> <span style="color: #999;font-size: 18px;">Bounce Rate</span>
+                                                    10%</h1> <span style="color: #999;font-size: 18px;">Bounce
+                                                    Rate</span>
                                             </div>
                                         </div>
                                         <div class="col-sm-4">
@@ -157,80 +164,92 @@
                                                 style="padding: 10px; background-color: #FBFBFB;">
                                                 <h1
                                                     style="border-bottom: 1px solid #E5E5E5;padding: 20px 0;margin-top: 0;font-size:36px;color:#202A51;">
-                                                    0.1%</h1> <span style="color: #999;font-size: 18px;">Spam Rate</span>
+                                                    0.1%</h1> <span style="color: #999;font-size: 18px;">Spam
+                                                    Rate</span>
                                             </div>
                                         </div>
+
                                     </div>
+
+
                                 </div>
-
+                                <div class="highcharts-container">
+                                    <figure class="highcharts-figure">
+                                        <div id="container1"></div>
+                                    </figure>
+                                </div>
+                            
+                        
                             </div>
 
                         </div>
-                    <!-- Issues content -->
-                        <div id="Issues" class="tabcontent">
-                         <div class="mb-3">
-                            <div class="qp-table">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>Issue</th>
-                                            <th>Status</th>
-                                            <th>Account</th>
-                                            <th>Report Date</th>
-                                            <th>Last Update</th>
-                                            <th>ETA</th>
-                                            <th>Owner</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>3203261</td>
-                                            <td>[Surveys (QP)] Email Delivery Issue - IP Blacklisted [Bug] [Client
-                                                Specific] [US]</td>
-                                            <td>New</td>
-                                            <td>account@test.com</td>
-                                            <td>Jul 16 2024</td>
-                                            <td>jul 16 2024</td>
-                                            <td>N/A</td>
-                                            <td>John Doe</td>
-                                            <td>...</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3203262</td>
-                                            <td>[Surveys (QP)] Government Instance - unable to export pdf report [Bug]
-                                                [Client Specific] [US]</td>
-                                            <td>New</td>
-                                            <td>account@test.com</td>
-                                            <td>Jul 16 2024</td>
-                                            <td>Jul 16 2024</td>
-                                            <td>Jul 17 2024</td>
-                                            <td>John Doe</td>
-                                            <td>...</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3203263</td>
-                                            <td>[Surveys (QP)] Storage space is not updating after delete audit files
-                                                [Bug] [Client Specific] [US]</td>
-                                            <td>In Review</td>
-                                            <td>account@test.com</td>
-                                            <td>Jul 16 2024</td>
-                                            <td>Jul 16 2024</td>
-                                            <td>Jul 17 2024</td>
-                                            <td>John Doe</td>
-                                            <td>...</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                        <!-- Issues content -->
+                        <div id="Issues" class="tabcontent issues-container">
+                            <div class="mb-3">
+                                <div class="qp-table">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Issue</th>
+                                                <th>Status</th>
+                                                <th>Account</th>
+                                                <th>Report Date</th>
+                                                <th>Last Update</th>
+                                                <th>ETA</th>
+                                                <th>Owner</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>3203261</td>
+                                                <td>[Surveys (QP)] Email Delivery Issue - IP Blacklisted [Bug] [Client
+                                                    Specific] [US]</td>
+                                                <td>New</td>
+                                                <td>account@test.com</td>
+                                                <td>Jul 16 2024</td>
+                                                <td>jul 16 2024</td>
+                                                <td>N/A</td>
+                                                <td>John Doe</td>
+                                                <td>...</td>
+                                            </tr>
+                                            <tr>
+                                                <td>3203262</td>
+                                                <td>[Surveys (QP)] Government Instance - unable to export pdf report
+                                                    [Bug]
+                                                    [Client Specific] [US]</td>
+                                                <td>New</td>
+                                                <td>account@test.com</td>
+                                                <td>Jul 16 2024</td>
+                                                <td>Jul 16 2024</td>
+                                                <td>Jul 17 2024</td>
+                                                <td>John Doe</td>
+                                                <td>...</td>
+                                            </tr>
+                                            <tr>
+                                                <td>3203263</td>
+                                                <td>[Surveys (QP)] Storage space is not updating after delete audit
+                                                    files
+                                                    [Bug] [Client Specific] [US]</td>
+                                                <td>In Review</td>
+                                                <td>account@test.com</td>
+                                                <td>Jul 16 2024</td>
+                                                <td>Jul 16 2024</td>
+                                                <td>Jul 17 2024</td>
+                                                <td>John Doe</td>
+                                                <td>...</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
-                        </div>
-                    <!-- Insights content -->
+                        <!-- Insights content -->
                         <div id="Insights" class="tabcontent">
                             <form>
                                 <div class="mb-3">
-                                    <textarea class="form-control" id="aiinsight"  rows="25">
+                                    <textarea class="form-control" id="aiinsight" rows="15">
                                 After analyzing the provided account insights, here are five next steps to contact the customer and increase their usage of QuestionPro:
                                 
                                 1. **Upgrade storage and API calls limit**: The customer has already exceeded the storage limit and is close to reaching the API calls limit. Consider contacting them to discuss potential storage upgrades and increasing their API calls limit to support their growing needs. This could encourage them to use QuestionPro for more data-intensive projects.
@@ -246,10 +265,11 @@
                                 
                                 5. **Promote QuestionPro community and resources**: Encourage the customer to engage with QuestionPro's community and resources, such as user groups, webinars, and help articles. Sharing these resources can help them learn from other users, stay updated on best practices, and feel more connected to the platform. This, in turn, can increase their overall satisfaction and usage of QuestionPro.
                                     </textarea>
-                                    <div id="insightsHelp" class="form-text">Consider that insights may not be correct, read carefully</div>
+                                    <div id="insightsHelp" class="form-text">Consider that insights may not be correct,
+                                        read carefully</div>
                                     <button type="submit" class="btn btn-primary">Generate Insights</button>
                                 </div>
-                                
+
                             </form>
                         </div>
 
@@ -281,8 +301,9 @@
             <td>06-08-2025</td>
             <td>
                 <!-- Trigger/Open The Modal -->
-                <button id="myBtn" class="btn btn-link">Usage</button></td>
-        </tr>  
+                <button id="myBtn" class="btn btn-link">Usage</button>
+            </td>
+        </tr>
         <tr>
             <td>
                 <div class="status-r"></div>
@@ -295,9 +316,10 @@
             <td>04-02-2025</td>
             <td>
                 <!-- Trigger/Open The Modal -->
-                <button id="myBtn" class="btn btn-link">Usage</button></td>
-        </tr>     
-        
+                <button id="myBtn" class="btn btn-link">Usage</button>
+            </td>
+        </tr>
+
     </table>
 
     <script>
@@ -365,6 +387,69 @@
 
         // Default open tab
         document.getElementsByClassName("tablinks")[0].click();
+
+        // Chart 1
+
+        Highcharts.chart('container1', {
+
+            title: {
+                text: 'Response Rate',
+                align: 'left'
+            },
+
+
+            yAxis: {
+                title: {
+                    text: 'Response Rate'
+                }
+            },
+
+            xAxis: {
+                accessibility: {
+                    rangeDescription: 'Range: 2010 to 2020'
+                }
+            },
+
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle'
+            },
+
+            plotOptions: {
+                series: {
+                    label: {
+                        connectorAllowed: false
+                    },
+                    pointStart: 2010
+                }
+            },
+
+            series: [{
+                name: 'Response Rate',
+                data: [
+                    43934, 48656, 65165, 81827, 112143, 142383,
+                    171533, 165174, 155157, 161454, 154610
+                ]
+            }],
+
+            responsive: {
+                rules: [{
+                    condition: {
+                        maxWidth: 5000
+                    },
+                    chartOptions: {
+                        legend: {
+                            layout: 'horizontal',
+                            align: 'center',
+                            verticalAlign: 'bottom'
+                        }
+                    }
+                }]
+            }
+
+        });
+
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
