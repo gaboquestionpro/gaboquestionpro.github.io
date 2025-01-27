@@ -1,0 +1,42 @@
+html {
+    font-size: 14px;
+}
+
+body {
+    font-family: var(--font-family);
+    font-weight: normal;
+    background: var(--surface-ground);
+    color: var(--text-color);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.card {
+    background: var(--surface-card);
+    padding: 2rem;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+}
+
+/* This is the key rule for centering the root node horizontally */
+.p-organizationchart .p-organizationchart-table {
+    margin: 0 auto;
+}
+
+.p-organizationchart-lines {
+    position: relative;
+    background-color: #1B3380 !important; /* Color of the lines */
+    z-index: 10 !important;
+}
+
+
+.loader {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center;     /* Center vertically */
+    height: 100vh;          /* Make the div take up the full viewport height */
+}
+
+.rounded-circle {
+    border-radius: 50%;
+}

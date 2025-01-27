@@ -1,0 +1,209 @@
+/* Styling for the app container */
+.app {
+  display: flex;
+  flex-direction: column; /* So it stacks naturally from top to bottom */
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh; /* Use min-height instead of a fixed height */
+  width: 100vw;
+  margin: 0;
+  padding: 20px; /* Some padding for breathing room */
+  box-sizing: border-box;
+  background-color: #ffffff;
+
+  /* Enable scrolling inside the app if needed.
+     Alternatively, remove this and let the document scroll. */
+  overflow-y: auto;
+}
+
+h3 {
+  color: #4b5563;
+  display: block;
+  font-size: 1.8em;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+  unicode-bidi: isolate;
+}
+
+/* Styling for the org chart container */
+.org-chart-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Org chart tree styles */
+.org-tree {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.org-tree li {
+  margin: 20px auto;
+  position: relative;
+  padding: 20px 5px 0px 5px;
+}
+
+/* Lines that connect parent to children */
+.org-tree li::before,
+.org-tree li::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 50%;
+  border-top: 2px solid #ccc;
+  width: 50%;
+  height: 20px;
+}
+
+.org-tree li::after {
+  right: auto;
+  left: 50%;
+  border-left: 2px solid #ccc;
+}
+
+/* Hide lines for single-child scenario unless it's the root node */
+.org-tree li:only-child::before,
+.org-tree li:only-child::after {
+  display: none;
+}
+.org-tree li:only-child {
+  padding-top: 0;
+}
+
+/* Root node lines hidden */
+.root-node::before,
+.root-node::after {
+  display: none !important;
+}
+.root-node {
+  padding-top: 0 !important;
+}
+
+/* Node container */
+.org-node {
+  border: 1px solid #ccc;
+  padding: 10px;
+  background-color: #f9f9f9;
+  text-align: center;
+  position: relative;
+  max-width: 220px; /* optional limit */
+}
+
+/* Person node styling */
+.org-node-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.org-node-info h3 {
+  margin: 5px 0 0;
+  font-size: 16px;
+}
+
+.org-node-info p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #666;
+}
+
+.toggle-button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 1rem;
+  color: #333;
+  margin-left: 8px;
+}
+
+.toggle-button i {
+  font-size: 1.2rem;
+  color: #333;
+}
+
+/* ------------------------------------
+   FADE / SLIDE TRANSITION WRAPPER
+------------------------------------ */
+.org-children-wrapper {
+  /* Initially collapsed */
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden; /* Hide content when collapsed. */
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+}
+
+/* When expanded, show the children */
+.org-children-wrapper.expanded {
+  max-height: 9999px; /* A large number to accommodate all children */
+  opacity: 1;
+}
+
+/* The actual container that holds children */
+.org-children {
+  display: flex;
+  justify-content: center;
+}
+
+/* Make the entire CEO node container bigger */
+.root-node > .org-node {
+  width: 300px; /* Increase width */
+  padding: 20px; /* More padding */
+  font-size: 1.1em; /* Slightly bigger text size if desired */
+  border: 2px solid #adadad59; /* Optional thicker border */
+  background-color: #f0f8ff; /* Optional background color */
+}
+
+/* Make the CEO avatar bigger */
+.root-node .org-node-avatar {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 10px;
+  border-radius: 50%;
+  object-fit: cover; /* If you want the image to fill nicely */
+}
+
+/* Optionally bump up the name/title text sizes */
+.root-node .org-node-info h3 {
+  font-size: 18px;
+  margin: 5px 0;
+}
+.root-node .org-node-info p {
+  font-size: 16px;
+  margin: 5px 0;
+}
+
+/* LEVEL 1 (CEO) – darkest */
+.level-1 > .org-node {
+  background-color: #ffffff42;
+  color: #fff; /* White text for contrast */
+}
+
+/* LEVEL 2 */
+.level-2 > .org-node {
+  background-color: rgba(255, 255, 255, 0.123);
+  color: #fff;
+}
+
+/* LEVEL 3 – pick a mid-tone or an RGBA blend */
+.level-3 > .org-node {
+  background-color: rgba(255, 255, 255, 0.24);
+  /* Adjust alpha to taste; 0.3 is just an example */
+  color: #000; /* Use darker text if it's becoming lighter */
+}
+
+/* LEVEL 4 – lightest (almost white) */
+.level-4 > .org-node {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #000;
+}
+
+
