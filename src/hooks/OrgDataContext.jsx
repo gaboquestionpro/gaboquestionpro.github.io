@@ -9,7 +9,7 @@ export const OrgDataProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
+  /*useEffect(() => {
     const fetchOrgData = async () => {
       try {
         const response = await fetch('http://localhost:4001/org-chart');
@@ -24,8 +24,9 @@ export const OrgDataProvider = ({ children }) => {
         setLoading(false);
       }
     };
+    */
 
-   /* useEffect(() => {
+    useEffect(() => {
       const fetchOrgData = async () => {
         try {
           // Replace the API URL with a local JSON import.
@@ -36,7 +37,7 @@ export const OrgDataProvider = ({ children }) => {
         } finally {
           setLoading(false);
         }
-      };*/
+      };
 
     fetchOrgData();
   }, []);
