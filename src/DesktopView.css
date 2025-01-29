@@ -1,42 +1,277 @@
-html {
-    font-size: 14px;
+/* Outer container */
+.lazy-org-chart-container {
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: auto;
+  overflow-y: auto;
+  /* Removed background here if you're setting it globally on body;
+     or keep if you prefer a separate color from the global background. */
+  background: #f7f9fa;
+  padding: 2rem 0;
+  box-sizing: border-box;
 }
 
-body {
-    font-family: var(--font-family);
-    font-weight: normal;
-    background: var(--surface-ground);
-    color: var(--text-color);
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+/* Inner wrapper auto-expands for wide charts, but stays centered if smaller than the screen */
+.lazy-org-chart-inner {
+  width: max-content;
+  margin: 0 auto;
+  padding: 0 2rem;
 }
 
-.card {
-    background: var(--surface-card);
-    padding: 2rem;
-    border-radius: 10px;
-    margin-bottom: 1rem;
+/* Node + children wrapper */
+.lazy-node-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1rem;
+  position: relative;
 }
 
-/* This is the key rule for centering the root node horizontally */
-.p-organizationchart .p-organizationchart-table {
-    margin: 0 auto;
+/* Node "card" */
+.lazy-node {
+  position: relative; /* for absolute positioning of the toggle button */
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  text-align: center;
+  padding: 1.5rem 1rem 2.5rem; /* extra bottom padding for the toggle button */
+  min-width: 120px;
+  max-width: 200px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.p-organizationchart-lines {
-    position: relative;
-    background-color: #1B3380 !important; /* Color of the lines */
-    z-index: 10 !important;
+/* Node content: image, name, title */
+.lazy-node-image {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 0.5rem;
 }
 
-
-.loader {
-    display: flex;
-    justify-content: center; /* Center horizontally */
-    align-items: center;     /* Center vertically */
-    height: 100vh;          /* Make the div take up the full viewport height */
+/* 
+  Let's map "node name" to something like Heading 04:
+  - Fira Sans 16, Medium, Line Height 24
+  - color: #545E6B (default text color)
+*/
+.lazy-node-name {
+  font-size: 16px;
+  font-weight: 500; /* Medium */
+  line-height: 24px;
+  color: #545E6B;
+  margin-bottom: 0.2rem;
 }
 
-.rounded-circle {
-    border-radius: 50%;
+/* 
+  Let's map "node title" to something like Subtitle 02:
+  - Fira Sans 14, Regular, Line Height 16
+  - color: #9B9B9B (subtle text color)
+*/
+.lazy-node-title {
+  font-size: 14px;
+  font-weight: 400; /* Regular */
+  line-height: 16px;
+  color: #9B9B9B;   /* Subtle text color */
+  margin-bottom: 0.5rem;
+}
+
+/* Toggle button at the bottom center of the node card */
+.lazy-toggle-btn {
+  position: absolute;
+  bottom: 0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1B3380; /* P Blue #1B87E6 for links/actionable */
+  color: #fff;         /* White text on blue background */
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+/* Loader screen while data is loading. */
+.lazy-loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  /* If you want bigger text for a loader, you can treat it like Heading 03 (18px Medium). */
+  font-size: 1.25rem;
+  color: #555; /* Or your default text color */
+}
+
+/* If a node is expanded and has children, we place them below. */
+.lazy-children {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+/* The short vertical line from the parent node down to the horizontal line */
+.lazy-line.vertical {
+  width: 1px;
+  background: #ccc;
+  height: 20px;
+  margin: 0 auto;
+}
+
+/* Container that holds the horizontal line and the child nodes. */
+.lazy-children-container {
+  position: relative;     /* for absolutely-positioned horizontal line */
+  display: inline-flex;   /* shrinks to fit only the visible child nodes */
+  align-items: flex-start;
+  margin-top: 0.5rem;
+  z-index: 1; /* child nodes above the line */
+}
+
+/* The horizontal line extends behind all child nodes */
+.lazy-line.horizontal {
+  position: absolute;
+  top: 50%; /* halfway down in the container */
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: #ccc;
+  z-index: 0; /* behind the child nodes */
+}
+
+/* Adjustments for small screens */
+@media (max-width: 600px) {
+  .lazy-node {
+    min-width: 100px;
+    padding: 1rem 0.75rem 2rem;
+  }
+  .lazy-node-image {
+    width: 50px;
+    height: 50px;
+  }
+  .lazy-toggle-btn {
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+  }
+  /* Slightly reduce the text size if you want more space on small devices */
+  .lazy-node-title {
+    font-size: 0.8rem;
+  }
+}
+
+/* Highlight matching text */
+.highlight-text {
+  font-weight: bold;
+}
+
+/* Search bar styles */
+.search-bar-container {
+  margin: 20px;
+  text-align: center;
+}
+
+.search-input {
+  width: 300px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Floating Search Bar Styles */
+.floating-search-container {
+  position: fixed;
+  bottom: 80px; /* Position above the toggle button */
+  right: 20px;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1000; /* Ensure it's above other elements */
+  display: flex;
+  align-items: center;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Hidden state */
+.floating-search-container.hidden {
+  transform: translateY(100%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Visible state */
+.floating-search-container.visible {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Search Input Styling */
+.floating-search-input {
+  width: 200px; /* Adjust width as needed */
+  padding: 8px 10px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  outline: none;
+}
+
+/* Clear Button Styling */
+.floating-clear-button {
+  margin-left: 8px;
+  background: transparent;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  color: #999;
+}
+
+.floating-clear-button:hover {
+  color: #555;
+}
+
+/* Floating Toggle Button for Search Bar */
+.floating-search-toggle {
+  position: fixed;
+  bottom: 20px; /* Positioned at the bottom */
+  right: 20px;  /* Same as search bar */
+  background-color: #1B87E6; /* Customize as needed */
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1001; /* Above the search bar container */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.floating-search-toggle.active {
+  background-color: #1B3380; /* Darker shade when active */
+  transform: rotate(90deg); /* Example: Rotate the button when active */
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  /* Adjust floating search bar position and size */
+  .floating-search-container {
+    width: 90%;
+    right: 5%;
+    bottom: 80px; /* Adjust to prevent overlap with toggle button */
+  }
+
+  /* Adjust floating toggle button size */
+  .floating-search-toggle {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
 }

@@ -1,56 +1,85 @@
-import React, { useState } from 'react';
-import { OrganizationChart } from 'primereact/organizationchart';
-import { useOrgData } from '../hooks/OrgDataContext'; // Custom hook for shared data context
-import { WuLoader } from '@npm-questionpro/wick-ui-lib';
-import '../DesktopView.css'; // Custom stylesheet
+// src/DesktopViewLazy.jsx
+import React, { useState, useMemo } from "react";
+import { useOrgData } from "../hooks/OrgDataContext";
+import "../DesktopView.css";
+import Node from "../utils/Node"; // Ensure the path is correct
+import SearchBar from "../utils/SearchBar"; // Ensure the path is correct
 
-export default function DesktopView() {
-    const { orgData, loading, error } = useOrgData(); // Access organization data from context
-    const [selection, setSelection] = useState([]);
+/** 
+ * Recursively search through the org data and return nodes that match the query. 
+ */
+const filterOrgData = (nodes, query) => {
+  const filtered = [];
 
-    // Template for rendering each node in the organization chart
-    const nodeTemplate = (node) => {
-        if (node.type === 'person') {
-            return (
-                <div className="flex flex-column">
-                    <div className="flex flex-column align-items-center">
-                        <img
-                            alt={node.data.name}
-                            src={node.data.image}
-                            className="mb-3 w-3rem h-3rem rounded-circle"  // Added 'rounded-circle'
-                        />
-                        <span className="font-bold mb-2">{node.data.name}</span>
-                        <span>{node.data.title}</span>
-                    </div>
-                </div>
-            );
-        }
-    
-        return node.label;
-    };
-    
-    if (loading) {
-        return (
-            <div className="loader">
-                <WuLoader color="hsl(208, 80%, 50%)" size="md" />
-            </div>
-        );
+  nodes.forEach((node) => {
+    const { data, children } = node;
+    const isMatch =
+      data.name.toLowerCase().includes(query.toLowerCase()) ||
+      data.title.toLowerCase().includes(query.toLowerCase());
+
+    let filteredChildren = [];
+    if (children) {
+      filteredChildren = filterOrgData(children, query);
     }
 
-    if (error) {
-        return <div>Error: {error}</div>;
+    if (isMatch || filteredChildren.length > 0) {
+      filtered.push({
+        ...node,
+        expanded: !!filteredChildren.length, // Expand if children match
+        children: filteredChildren,
+      });
     }
+  });
 
+  return filtered;
+};
+
+/**
+ * Main org chart component that uses `useOrgData` hook
+ * Renders the org chart and includes the floating search bar.
+ */
+export default function DesktopViewLazy() {
+  const { orgData, loading, error } = useOrgData();
+  const [searchQuery, setSearchQuery] = useState("");
+
+  // Memoize the filtered data to optimize performance
+  const filteredData = useMemo(() => {
+    if (!searchQuery) return orgData;
+    return filterOrgData(orgData, searchQuery);
+  }, [orgData, searchQuery]);
+
+  if (loading) {
     return (
-        <div className="card overflow-x-auto">
-            <OrganizationChart
-                value={orgData}
-                selectionMode="multiple"
-                selection={selection}
-                onSelectionChange={(e) => setSelection(e.data)}
-                nodeTemplate={nodeTemplate}
-                className="p-organizationchart"
-            />
-        </div>
+      <div className="lazy-loader">
+        <p>Loading org chart...</p>
+      </div>
     );
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  if (!filteredData || filteredData.length === 0) {
+    return (
+      <div>
+        {/* Floating Search Bar */}
+        <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+        <div>No data available.</div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="lazy-org-chart-container">
+      {/* Floating Search Bar */}
+      <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+
+      <div className="lazy-org-chart-inner">
+        {filteredData.map((rootNode, index) => (
+          <Node key={index} node={rootNode} searchQuery={searchQuery} />
+        ))}
+      </div>
+    </div>
+  );
 }
